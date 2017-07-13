@@ -377,11 +377,8 @@
 				success       = 0,
 				error         = 0,
 				errorMessages = [],
-				$message      = wp.updates.adminNotice( {
-					id:        'no-items-selected',
-					className: 'update-message notice-error notice-alt',
-					message:   wp.updates.l10n.noItemsSelected
-				} );
+				$message;
+
 
 			// Remove previous error messages, if any.
 			$( '.theme-info .update-message' ).remove();
@@ -390,6 +387,13 @@
 			if ( ! itemsSelected.length ) {
 				event.preventDefault();
 				$( 'html, body' ).animate( { scrollTop: 0 } );
+
+				$message = wp.updates.adminNotice( {
+					id:        'no-items-selected',
+					className: 'update-message notice-error notice-alt',
+					message:   wp.updates.l10n.noItemsSelected
+				} );
+
 				$( '.theme-info .plugins-info' ).after( $message );
 			}
 
@@ -448,6 +452,9 @@
 
 				wp.updates.adminNotice = wp.template( 'wp-bulk-updates-admin-notice' );
 
+				// Remove previous error messages, if any.
+				$( '.theme-info .bulk-action-notice' ).remove();
+
 				$message = wp.updates.adminNotice( {
 					id:            'bulk-action-notice',
 					className:     'bulk-action-notice notice-alt',
@@ -457,8 +464,6 @@
 					type:          response.update
 				} );
 
-				// Remove previous error messages, if any.
-				$( '.theme-info .bulk-action-notice' ).remove();
 				$( '.theme-info .plugins-info' ).after( $message );
 
 				$bulkActionNotice = $( '#bulk-action-notice' ).on( 'click', 'button', function() {
