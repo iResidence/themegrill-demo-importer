@@ -246,7 +246,7 @@ $demo_filter_links = apply_filters( 'themegrill_demo_importer_filter_links_array
 						</tbody>
 						<tfoot>
 							<tr>
-								<th scope="col" class="manage-column plugins-installer" colspan="4"><a href="#" class="button button-primary plugins-install"<# if ( ! data.pluginsInstaller ) { #> disabled="disabled"<# } #>><?php _e( 'Install & activate plugins', 'themegrill-demo-importer' ); ?></a></th>
+								<th scope="col" class="manage-column plugins-installer" colspan="4"><a href="#" class="button button-primary plugins-install"<# if ( ! data.pluginsInstaller ) { #> disabled="disabled"<# } #>><?php _e( 'Install Plugins', 'themegrill-demo-importer' ); ?></a></th>
 							</tr>
 						</tfoot>
 					</table>
