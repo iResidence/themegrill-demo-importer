@@ -372,7 +372,7 @@ demos.view.Details = wp.Backbone.View.extend({
 		'click .left': 'previousDemo',
 		'click .right': 'nextDemo',
 		'click .demo-import': 'importDemo',
-		'click .plugins-install': 'installPlugins'
+		// 'click .plugins-install': 'installPlugins'
 	},
 
 	// The HTML template for the theme overlay
