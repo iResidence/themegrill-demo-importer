@@ -353,6 +353,10 @@
 				wp.updates.deleteDemo( job.data );
 				break;
 
+			case 'install-plugin':
+				wp.updates.installPlugin( job.data );
+				break;
+
 			default:
 				break;
 		}
