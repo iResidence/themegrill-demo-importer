@@ -58,19 +58,25 @@
 	};
 
 	/**
-	 * Sends an Ajax request to the server to install a plugin.
+	 * Sends an Ajax request to the server to install the plugins.
 	 *
-	 * @param {object}                args         Arguments.
-	 * @param {string}                args.slug    Plugin identifier in the WordPress.org Plugin repository.
-	 * @param {installPluginSuccess=} args.success Optional. Success callback. Default: wp.updates.installPluginSuccess
-	 * @param {installPluginError=}   args.error   Optional. Error callback. Default: wp.updates.installPluginError
+	 * @param {object}                    args         Arguments.
+	 * @param {string}                    args.plugin  Plugin basename.
+	 * @param {string}                    args.slug    Plugin identifier in the WordPress.org Plugin repository.
+	 * @param {bulkInstallPluginSuccess=} args.success Optional. Success callback. Default: wp.updates.bulkInstallPluginSuccess
+	 * @param {bulkInstallPluginError=}   args.error   Optional. Error callback. Default: wp.updates.bulkInstallPluginError
 	 * @return {$.promise} A jQuery promise that represents the request,
 	 *                     decorated with an abort() method.
 	 */
 	wp.updates.bulkInstallPlugin = function( args ) {
-		$document.trigger( 'wp-bulk-plugin-installing', args );
+		args = _.extend( {
+			success: wp.updates.bulkInstallPluginSuccess,
+			error: wp.updates.bulkInstallPluginError
+		}, args );
 
-		return wp.updates.ajax( 'install-bulk-plugin', args );
+		$document.trigger( 'wp-bulk-plugins-installing', args );
+
+		return wp.updates.ajax( 'install-bulk-plugins', args );
 	};
 
 	/**

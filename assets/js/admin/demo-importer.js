@@ -550,7 +550,7 @@ demos.view.Details = wp.Backbone.View.extend({
 		}
 
 		wp.updates.bulkInstallPlugin({
-			slug: $plugins
+			plugins: $plugins
 		});
 	},
 
