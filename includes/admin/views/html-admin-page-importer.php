@@ -170,6 +170,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<table class="plugins-list-table widefat">
 					<thead>
 						<tr>
+							<td id="cb" class="check-column">
+								<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'themegrill-demo-importer' ); ?></label>
+								<input id="cb-select-all-1" type="checkbox">
+							</td>
 							<th scope="col" class="plugin-name"><?php esc_html_e( 'Plugin Name', 'themegrill-demo-importer' ); ?></th>
 							<th scope="col" class="plugin-type"><?php esc_html_e( 'Type', 'themegrill-demo-importer' ); ?></th>
 							<th scope="col" class="plugin-status"><?php esc_html_e( 'Status', 'themegrill-demo-importer' ); ?></th>
@@ -178,7 +182,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<tbody id="the-list">
 						<# if ( ! _.isEmpty( data.plugins ) ) { #>
 							<# _.each( data.plugins, function( plugin, slug ) { #>
-								<tr>
+								<# var checkboxIdPrefix = _.uniqueId( 'checkbox_' ) #>
+								<tr class="plugin<# if ( plugin.required ) { #> wp-locked<# } #>" data-slug="{{ slug }}" data-plugin="{{ plugin.slug }}">
+									<th scope="row" class="check-column">
+										<label class="screen-reader-text" for="{{ checkboxIdPrefix }}"><?php printf( __( 'Select %s', 'themegrill-demo-importer' ), '{{ plugin.name }}' ); ?></label>
+										<input type="checkbox" name="checked[]" value="{{ plugin.slug }}" id="{{ checkboxIdPrefix }}">
+										<div class="locked-indicator">
+											<span class="locked-indicator-icon" aria-hidden="true"></span>
+											<span class="screen-reader-text"><?php
+											printf(
+												/* translators: %s: plugin name */
+												__( '&#8220;%s&#8221; is required', 'themegrill-demo-importer' ),
+												'{{ plugin.name }}'
+											);
+											?></span>
+										</div>
+									</th>
 									<td class="plugin-name">
 										<# if ( plugin.link ) { #>
 											<a href="{{{ plugin.link }}}" target="_blank">{{{ plugin.name }}}</a>
@@ -204,10 +223,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<# }); #>
 						<# } else { #>
 							<tr>
-								<td class="plugins-list-table-blank-state" colspan="3"><p><?php _e( 'No plugins are needed to import this demo.', 'themegrill-demo-importer' ); ?></p></td>
+								<td class="plugins-list-table-blank-state" colspan="4"><p><?php _e( 'No plugins are needed to import this demo.', 'themegrill-demo-importer' ); ?></p></td>
 							</tr>
 						<# } #>
 					</tbody>
+					<tfoot>
+						<tr>
+							<th class="plugins-installer" colspan="4"><a href="#" class="button button-primary plugins-install"<# if ( ! data.pluginsInstaller ) { #> disabled="disabled"<# } #>><?php _e( 'Install & activate plugins', 'themegrill-demo-importer' ); ?></a></th>
+						</tr>
+					</tfoot>
 				</table>
 
 				<# if ( data.tags ) { #>

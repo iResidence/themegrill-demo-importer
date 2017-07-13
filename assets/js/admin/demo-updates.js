@@ -58,6 +58,22 @@
 	};
 
 	/**
+	 * Sends an Ajax request to the server to install a plugin.
+	 *
+	 * @param {object}                args         Arguments.
+	 * @param {string}                args.slug    Plugin identifier in the WordPress.org Plugin repository.
+	 * @param {installPluginSuccess=} args.success Optional. Success callback. Default: wp.updates.installPluginSuccess
+	 * @param {installPluginError=}   args.error   Optional. Error callback. Default: wp.updates.installPluginError
+	 * @return {$.promise} A jQuery promise that represents the request,
+	 *                     decorated with an abort() method.
+	 */
+	wp.updates.bulkInstallPlugin = function( args ) {
+		$document.trigger( 'wp-bulk-plugin-installing', args );
+
+		return wp.updates.ajax( 'install-bulk-plugin', args );
+	};
+
+	/**
 	 * Sends an Ajax request to the server to import a demo.
 	 *
 	 * @param {object}             args

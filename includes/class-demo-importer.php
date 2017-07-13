@@ -490,6 +490,12 @@ class TG_Demo_Importer {
 					$plugins_list[ $plugin ]['is_active'] = is_plugin_active( $plugin_data['slug'] );
 				}
 
+				// Plugin installer.
+				$plugins_installer = false;
+				if ( wp_list_filter( $plugins_list, array( 'is_active' => false ) ) ) {
+					$plugins_installer = true;
+				}
+
 				// Add demo notices.
 				$demo_notices = array();
 				if ( isset( $demo_data['template'] ) && $current_template !== $demo_data['template'] ) {
@@ -527,6 +533,7 @@ class TG_Demo_Importer {
 						'active'           => $demo_id === $demo_activated_id,
 						'hasNotice'        => $demo_notices,
 						'plugins'          => $plugins_list,
+						'pluginsInstaller' => $plugins_installer,
 						'actions'         => array(
 							'preview'  => home_url( '/' ),
 							'demo_url' => $demo_data['demo_url'],
