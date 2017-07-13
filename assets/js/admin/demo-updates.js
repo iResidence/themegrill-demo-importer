@@ -443,14 +443,18 @@
 
 				wp.updates.adminNotice = wp.template( 'wp-bulk-updates-admin-notice' );
 
-				wp.updates.addAdminNotice( {
+				$message = wp.updates.adminNotice( {
 					id:            'bulk-action-notice',
-					className:     'bulk-action-notice',
+					className:     'bulk-action-notice notice-alt',
 					successes:     success,
 					errors:        error,
 					errorMessages: errorMessages,
 					type:          response.update
 				} );
+
+				// Remove previous error messages, if any.
+				$( '.theme-info .bulk-action-notice' ).remove();
+				$( '.theme-info .plugins-info' ).after( $message );
 
 				$bulkActionNotice = $( '#bulk-action-notice' ).on( 'click', 'button', function() {
 					// $( this ) is the clicked button, no need to get it again.
