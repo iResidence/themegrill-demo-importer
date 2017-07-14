@@ -400,7 +400,7 @@
 			// Bail if there were no items selected.
 			if ( ! itemsSelected.length ) {
 				event.preventDefault();
-				$( 'html, body' ).animate( { scrollTop: 0 } );
+				$( '.theme-about' ).animate( { scrollTop: 0 } );
 
 				$message = wp.updates.adminNotice( {
 					id:        'no-items-selected',
@@ -490,7 +490,7 @@
 				} );
 
 				if ( error > 0 && ! wp.updates.queue.length ) {
-					$( 'html, body' ).animate( { scrollTop: 0 } );
+					$( '.theme-about' ).animate( { scrollTop: 0 } );
 				}
 			} );
 
