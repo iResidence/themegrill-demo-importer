@@ -371,8 +371,7 @@ demos.view.Details = wp.Backbone.View.extend({
 		'click .delete-demo': 'deleteDemo',
 		'click .left': 'previousDemo',
 		'click .right': 'nextDemo',
-		'click .demo-import': 'importDemo',
-		// 'click .plugins-install': 'installPlugins'
+		'click .demo-import': 'importDemo'
 	},
 
 	// The HTML template for the theme overlay
@@ -524,34 +523,6 @@ demos.view.Details = wp.Backbone.View.extend({
 		wp.updates.importDemo( {
 			slug: $target.data( 'slug' )
 		} );
-	},
-
-	installPlugins: function( event ) {
-		var $button  = $( event.target ),
-			$plugins = $( '#the-list .wp-locked input:checkbox, #the-list input:checkbox:checked' ).map( function() { return this.value; } ).get();
-
-		event.preventDefault();
-
-		if ( $button.hasClass( 'updating-message' ) || $button.hasClass( 'button-disabled' ) ) {
-			return;
-		}
-
-		if ( wp.updates.shouldRequestFilesystemCredentials && ! wp.updates.ajaxLocked ) {
-			wp.updates.requestFilesystemCredentials( event );
-
-			$( document ).on( 'credential-modal-cancel', function() {
-
-				$button
-					.removeClass( 'updating-message' )
-					.text( wp.updates.l10n.installNow );
-
-				wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
-			} );
-		}
-
-		wp.updates.bulkInstallPlugin({
-			plugins: $plugins
-		});
 	},
 
 	deleteDemo: function( event ) {
