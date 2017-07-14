@@ -115,9 +115,11 @@ table.plugins-list-table {
 		}
 	}
 
-	th {
-		padding: 9px;
-		font-weight: 600;
+	thead {
+		th {
+			padding: 9px;
+			font-weight: 600;
+		}
 	}
 
 	td {
