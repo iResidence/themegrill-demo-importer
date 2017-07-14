@@ -453,10 +453,10 @@
 				var $itemRow = $( '[data-slug="' + response.slug + '"]' ),
 					$bulkActionNotice, itemName;
 
-				if ( 'wp-' + response.update + '-update-success' === event.type ) {
+				if ( 'wp-' + response.install + '-install-success' === event.type ) {
 					success++;
 				} else {
-					itemName = response.pluginName ? response.pluginName : $itemRow.find( '.column-primary strong' ).text();
+					itemName = response.pluginName ? response.pluginName : $itemRow.find( '.plugin-name' ).text();
 
 					error++;
 					errorMessages.push( itemName + ': ' + response.errorMessage );
@@ -464,7 +464,7 @@
 
 				$itemRow.find( 'input[name="checked[]"]:checked' ).prop( 'checked', false );
 
-				wp.updates.adminNotice = wp.template( 'wp-bulk-updates-admin-notice' );
+				wp.updates.adminNotice = wp.template( 'wp-bulk-installs-admin-notice' );
 
 				// Remove previous error messages, if any.
 				$( '.theme-info .bulk-action-notice' ).remove();
@@ -475,7 +475,7 @@
 					successes:     success,
 					errors:        error,
 					errorMessages: errorMessages,
-					type:          response.update
+					type:          response.install
 				} );
 
 				$( '.theme-info .plugins-info' ).after( $message );
