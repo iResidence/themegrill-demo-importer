@@ -410,11 +410,6 @@
 				$( '.theme-info .plugins-info' ).after( $message );
 			}
 
-			// if ( ! window.confirm( 'Are you sure?' ) ) {
-			// 	event.preventDefault();
-			// 	return;
-			// }
-
 			wp.updates.maybeRequestFilesystemCredentials( event );
 
 			event.preventDefault();
