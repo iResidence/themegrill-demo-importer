@@ -269,3 +269,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 wp_print_request_filesystem_credentials_modal();
 wp_print_admin_notice_templates();
+tg_print_admin_notice_templates();
