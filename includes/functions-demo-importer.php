@@ -421,3 +421,21 @@ function tg_print_admin_notice_templates() {
 	</script>
 	<?php
 }
+
+/**
+ * Check if a plugin is installed.
+ *
+ * @access private
+ *
+ * @param  string $plugin_slug The plugin slug.
+ * @return bool
+ */
+function _tg_is_plugin_installed( $plugin_slug ) {
+	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_slug ) ) {
+		$plugins = get_plugins( '/' . $plugin_slug );
+		if ( ! empty( $plugins ) ) {
+			return true;
+		}
+	}
+	return false;
+}

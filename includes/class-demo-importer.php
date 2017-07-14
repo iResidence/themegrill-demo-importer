@@ -487,7 +487,8 @@ class TG_Demo_Importer {
 
 				// Plugins status.
 				foreach ( $plugins_list as $plugin => $plugin_data ) {
-					$plugins_list[ $plugin ]['is_active'] = is_plugin_active( $plugin_data['slug'] );
+					$plugins_list[ $plugin ]['is_active']  = is_plugin_active( $plugin_data['slug'] );
+					$plugins_list[ $plugin ]['is_install'] = _tg_is_plugin_installed( $plugin );
 				}
 
 				// Plugin installer.
