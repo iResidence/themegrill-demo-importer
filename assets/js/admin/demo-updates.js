@@ -58,28 +58,6 @@
 	};
 
 	/**
-	 * Sends an Ajax request to the server to install the plugins.
-	 *
-	 * @param {object}                    args         Arguments.
-	 * @param {string}                    args.plugin  Plugin basename.
-	 * @param {string}                    args.slug    Plugin identifier in the WordPress.org Plugin repository.
-	 * @param {bulkInstallPluginSuccess=} args.success Optional. Success callback. Default: wp.updates.bulkInstallPluginSuccess
-	 * @param {bulkInstallPluginError=}   args.error   Optional. Error callback. Default: wp.updates.bulkInstallPluginError
-	 * @return {$.promise} A jQuery promise that represents the request,
-	 *                     decorated with an abort() method.
-	 */
-	wp.updates.bulkInstallPlugin = function( args ) {
-		args = _.extend( {
-			success: wp.updates.bulkInstallPluginSuccess,
-			error: wp.updates.bulkInstallPluginError
-		}, args );
-
-		$document.trigger( 'wp-bulk-plugins-installing', args );
-
-		return wp.updates.ajax( 'install-bulk-plugins', args );
-	};
-
-	/**
 	 * Sends an Ajax request to the server to import a demo.
 	 *
 	 * @param {object}             args
@@ -274,6 +252,42 @@
 	};
 
 	/**
+	 * Sends an Ajax request to the server to install the plugins.
+	 *
+	 * @param {object}                    args         Arguments.
+	 * @param {string}                    args.plugin  Plugin basename.
+	 * @param {string}                    args.slug    Plugin identifier in the WordPress.org Plugin repository.
+	 * @param {installPluginSuccess=} args.success Optional. Success callback. Default: wp.updates.installPluginSuccess
+	 * @param {installPluginError=}   args.error   Optional. Error callback. Default: wp.updates.installPluginError
+	 * @return {$.promise} A jQuery promise that represents the request,
+	 *                     decorated with an abort() method.
+	 */
+	wp.updates.bulkInstallPlugin = function( args ) {
+		var $installRow = $( 'tr[data-plugin="' + args.plugin + '"]' ),
+			$message    = $installRow.find( '.update-message' ).removeClass( 'notice-error' ).addClass( 'updating-message notice-warning' ).find( 'p' );
+
+		args = _.extend( {
+			success: wp.updates.installPluginSuccess,
+			error: wp.updates.installPluginError
+		}, args );
+
+		if ( $message.html() !== wp.updates.l10n.installing ) {
+			$message.data( 'originaltext', $message.html() );
+		}
+
+		$message
+			.addClass( 'updating-message' )
+			.attr( 'aria-label', wp.updates.l10n.pluginInstallingLabel.replace( '%s', $message.data( 'name' ) ) )
+			.text( wp.updates.l10n.installing );
+
+		wp.a11y.speak( wp.updates.l10n.installingMsg, 'polite' );
+
+		$document.trigger( 'wp-plugin-installing', args );
+
+		return wp.updates.ajax( 'install-plugin', args );
+	};
+
+	/**
 	 * Validates an AJAX response to ensure it's a proper object.
 	 *
 	 * If the response deems to be invalid, an admin notice is being displayed.
@@ -354,7 +368,7 @@
 				break;
 
 			case 'install-plugin':
-				wp.updates.installPlugin( job.data );
+				wp.updates.bulkInstallPlugin( job.data );
 				break;
 
 			default:
