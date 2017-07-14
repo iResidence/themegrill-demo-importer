@@ -387,12 +387,11 @@
 		 * @param {Event} event Event interface.
 		 */
 		$document.on( 'click', 'a.plugins-install', function( event ) {
-			var itemsSelected = $document.find( 'input[name="checked[]"]:checked' ),
+			var itemsSelected = $document.find( '.wp-locked input[name="checked[]"], input[name="checked[]"]:checked' ),
 				success       = 0,
 				error         = 0,
 				errorMessages = [],
 				$message;
-
 
 			// Remove previous error messages, if any.
 			$( '.theme-info .update-message' ).remove();
