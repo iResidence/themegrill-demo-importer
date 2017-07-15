@@ -264,7 +264,7 @@
 	 */
 	wp.updates.bulkInstallPlugin = function( args ) {
 		var $installRow = $( 'tr[data-plugin="' + args.plugin + '"]' ),
-			$message    = $installRow.find( '.update-message' ).removeClass( 'notice-error' ).addClass( 'updating-message notice-warning' ).find( 'p' );
+			$message    = $installRow.find( 'mark' ).removeClass( 'error' ).addClass( 'updating-message' );
 
 		args = _.extend( {
 			success: wp.updates.installPluginSuccess,
@@ -276,8 +276,7 @@
 		}
 
 		$message
-			.addClass( 'updating-message' )
-			.attr( 'aria-label', wp.updates.l10n.pluginInstallingLabel.replace( '%s', $message.data( 'name' ) ) )
+			.attr( 'aria-label', wp.updates.l10n.pluginInstallingLabel.replace( '%s', $installRow.find( '.plugin-name' ).text() ) )
 			.text( wp.updates.l10n.installing );
 
 		wp.a11y.speak( wp.updates.l10n.installingMsg, 'polite' );
