@@ -118,7 +118,7 @@ table.plugins-list-table {
 	thead {
 		th {
 			padding: 9px;
-			font-weight: 600;
+			// font-weight: 600;
 		}
 	}
 
@@ -149,6 +149,10 @@ table.plugins-list-table {
 
 	.plugins-install {
 		float: right;
+	}
+
+	.plugin-name strong {
+		font-weight: 400;
 	}
 }
 

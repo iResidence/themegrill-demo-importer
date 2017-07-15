@@ -192,7 +192,6 @@ $demo_filter_links = apply_filters( 'themegrill_demo_importer_filter_links_array
 									<input id="cb-select-all-1" type="checkbox">
 								</td>
 								<th scope="col" class="manage-column plugin-name"><?php esc_html_e( 'Plugin Name', 'themegrill-demo-importer' ); ?></th>
-								<th scope="col" class="manage-column plugin-type"><?php esc_html_e( 'Type', 'themegrill-demo-importer' ); ?></th>
 								<th scope="col" class="manage-column plugin-status"><?php esc_html_e( 'Status', 'themegrill-demo-importer' ); ?></th>
 							</tr>
 						</thead>
@@ -222,31 +221,26 @@ $demo_filter_links = apply_filters( 'themegrill_demo_importer_filter_links_array
 												<a href="<?php printf( esc_url( 'https://wordpress.org/plugins/%s' ), '{{ slug }}' ); ?>" target="_blank">{{ plugin.name }}</a>
 											<# } #>
 										</td>
-										<td class="plugin-type">
-											<# if ( plugin.required ) { #>
-												<span class="required"><?php esc_html_e( 'Required', 'themegrill-demo-importer' ); ?></span>
-											<# } else { #>
-												<span class="recommended"><?php esc_html_e( 'Recommended', 'themegrill-demo-importer' ); ?></span>
-											<# } #>
-										</td>
 										<td class="plugin-status">
 											<# if ( plugin.is_active ) { #>
 												<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
-											<# } else { #>
+											<# } else if ( plugin.is_install ) { #>
 												<mark class="error"><span class="dashicons dashicons-no-alt"></span></mark>
+											<# } else { #>
+												<mark class="error"><span class="dashicons dashicons-warning"></span></mark>
 											<# } #>
 										</td>
 									</tr>
 								<# }); #>
 							<# } else { #>
 								<tr>
-									<td class="plugins-list-table-blank-state" colspan="4"><p><?php _e( 'No plugins are needed to import this demo.', 'themegrill-demo-importer' ); ?></p></td>
+									<td class="plugins-list-table-blank-state" colspan="3"><p><?php _e( 'No plugins are needed to import this demo.', 'themegrill-demo-importer' ); ?></p></td>
 								</tr>
 							<# } #>
 						</tbody>
 						<tfoot>
 							<tr>
-								<th scope="col" class="manage-column plugins-installer" colspan="4"><a href="#" class="button button-primary plugins-install"<# if ( ! data.pluginsInstaller ) { #> disabled="disabled"<# } #>><?php _e( 'Install Plugins', 'themegrill-demo-importer' ); ?></a></th>
+								<th scope="col" class="manage-column plugins-installer" colspan="3"><a href="#" class="button button-primary plugins-install"<# if ( ! data.pluginsInstaller ) { #> disabled="disabled"<# } #>><?php _e( 'Install Plugins', 'themegrill-demo-importer' ); ?></a></th>
 							</tr>
 						</tfoot>
 					</table>
